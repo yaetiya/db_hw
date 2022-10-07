@@ -1,0 +1,50 @@
+version: "3.9"
+
+volumes:
+  lib-data:
+  stations-data:
+  hospital-data:
+
+
+services:
+  library:
+    image: postgres:14.5
+
+    environment:
+      POSTGRES_DB: egorov_204
+      POSTGRES_USER: egorov_204
+      POSTGRES_PASSWORD: egorov_204
+
+    volumes:
+      - ./scripts/library.sql:/docker-entrypoint-initdb.d/library.sql
+      - lib-data:/var/lib/postgresql/data
+
+    ports:
+      - 5432:5432
+  stations:
+    image: postgres:14.5
+
+    environment:
+      POSTGRES_DB: egorov_204
+      POSTGRES_USER: egorov_204
+      POSTGRES_PASSWORD: egorov_204
+
+    volumes:
+      - stations-data:/var/lib/postgresql/data
+
+    ports:
+      - 5433:5432
+
+  hospital:
+    image: postgres:14.5
+
+    environment:
+      POSTGRES_DB: egorov_204
+      POSTGRES_USER: egorov_204
+      POSTGRES_PASSWORD: egorov_204
+
+    volumes:
+      - hospital-data:/var/lib/postgresql/data
+
+    ports:
+      - 5434:5432
